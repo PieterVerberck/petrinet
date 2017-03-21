@@ -5,7 +5,7 @@ Supported
 * Places, transitions and tokens  https://en.wikipedia.org/wiki/Petri_net
 * Colored petrinets               https://en.wikipedia.org/wiki/Coloured_Petri_net
 * Place capacity                  https://en.wikipedia.org/wiki/Petri_net#Boundedness
-* Multi-level tokens              <no literature>
+* Multi-level tokens              (no literature)
 
 Each token is a dynamically allocated object, making it perfect for
 data-management in complex asynchronous software systems.
