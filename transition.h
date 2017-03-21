@@ -31,28 +31,33 @@
 
 #include "sharedtreepointer.h"
 
-class Token;
-
-class Transition
+namespace petrinet
 {
-public:
-  Transition(const std::list<int>& inputPlaces, const std::list<int>& outputPlaces, std::function<void(Token*, boost::any, boost::any, boost::any)> func);
-  virtual ~Transition();
 
-  std::list<int>              inputPlaces()    const { return inputPlaces_; }
-  std::list<int>              outputPlaces()   const { return outputPlaces_; }
-  std::function<void(Token*, boost::any, boost::any, boost::any)> func() const { return func_; }
+  class Token;
 
-  int requiredTokens  (int placeId) const;
-  int requiredCapacity(int placeId) const;
+  class Transition
+  {
+  public:
+    Transition(const std::list<int>& inputPlaces, const std::list<int>& outputPlaces, std::function<void(Token*, boost::any, boost::any, boost::any)> func);
+    virtual ~Transition();
 
-private:
-  std::list<int> inputPlaces_;
-  std::list<int> outputPlaces_;
-  std::function<void(Token*, boost::any, boost::any, boost::any)> func_;
+    std::list<int>              inputPlaces()    const { return inputPlaces_; }
+    std::list<int>              outputPlaces()   const { return outputPlaces_; }
+    std::function<void(Token*, boost::any, boost::any, boost::any)> func() const { return func_; }
 
-  std::unordered_map<int, int> inputPlacesCount_;
-  std::unordered_map<int, int> outputPlacesCount_;
-};
+    int requiredTokens  (int placeId) const;
+    int requiredCapacity(int placeId) const;
+
+  private:
+    std::list<int> inputPlaces_;
+    std::list<int> outputPlaces_;
+    std::function<void(Token*, boost::any, boost::any, boost::any)> func_;
+
+    std::unordered_map<int, int> inputPlacesCount_;
+    std::unordered_map<int, int> outputPlacesCount_;
+  };
+
+}
 
 #endif

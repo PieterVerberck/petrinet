@@ -25,6 +25,8 @@
 
 #include <cassert>
 
+using namespace petrinet;
+
 Place::Place()
   :capacity_(-1),
   level_(1)

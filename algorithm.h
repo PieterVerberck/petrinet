@@ -24,25 +24,29 @@
 #ifndef PETRINET_ALGORITHM_H
 #define PETRINET_ALGORITHM_H
 
-// Written by Deduplicator
-// http://codereview.stackexchange.com/questions/59997/contains-algorithm-for-stdvector
-template<class C, class T>
-auto contains(const C& v, const T& x)
--> decltype(end(v), true)
+namespace petrinet
 {
-    return end(v) != std::find(begin(v), end(v), x);
-}
 
-template<class C, class T>
-int count(const C& v, const T& x)
-{
-  int i = 0;
-  for(auto it = v.begin(); it != v.end(); ++it)
+  // Written by Deduplicator
+  // http://codereview.stackexchange.com/questions/59997/contains-algorithm-for-stdvector
+  template<class C, class T>
+  auto contains(const C& v, const T& x)
+  -> decltype(end(v), true)
   {
-    if(*it == x)
-      ++i;
+      return end(v) != std::find(begin(v), end(v), x);
   }
-  return i;
+
+  template<class C, class T>
+  int count(const C& v, const T& x)
+  {
+    int i = 0;
+    for(auto it = v.begin(); it != v.end(); ++it)
+    {
+      if(*it == x)
+        ++i;
+    }
+    return i;
+  }
 }
 
 #endif

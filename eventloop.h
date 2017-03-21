@@ -29,31 +29,33 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 
-
-class EventLoop
+namespace petrinet
 {
-public:
-  EventLoop();
 
-  void start();
-  void run();
-  void stop();
-  void waitForStopped();
-  void waitForWorkDone();
-  boost::asio::io_service& get();
+  class EventLoop
+  {
+  public:
+    EventLoop();
 
-private:
-  boost::thread thread_;
-  boost::asio::io_service tcpIoService_;
+    void start();
+    void run();
+    void stop();
+    void waitForStopped();
+    void waitForWorkDone();
+    boost::asio::io_service& get();
 
-  // Prevent io_service::run from returning immediately
-  // http://www.boost.org/doc/libs/1_52_0/doc/html/boost_asio/reference/io_service.html#boost_asio.reference.io_service.stopping_the_io_service_from_running_out_of_work
-  std::auto_ptr<boost::asio::io_service::work> work_;
+  private:
+    boost::thread thread_;
+    boost::asio::io_service tcpIoService_;
 
-  std::condition_variable cv_;
-  std::mutex mutex_;
-  bool running_;
-};
+    // Prevent io_service::run from returning immediately
+    // http://www.boost.org/doc/libs/1_52_0/doc/html/boost_asio/reference/io_service.html#boost_asio.reference.io_service.stopping_the_io_service_from_running_out_of_work
+    std::auto_ptr<boost::asio::io_service::work> work_;
 
+    std::condition_variable cv_;
+    std::mutex mutex_;
+    bool running_;
+  };
+}
 
 #endif

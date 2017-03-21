@@ -23,6 +23,8 @@
 
 #include "eventloop.h"
 
+using namespace petrinet;
+
 EventLoop::EventLoop()
 : running_(false)
 {

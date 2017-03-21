@@ -25,6 +25,8 @@
 #include <boost/test/unit_test.hpp>
 #include "sharedtreepointer.h"
 
+using namespace petrinet;
+
 class SimpleToken
 {
 public:

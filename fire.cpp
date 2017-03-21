@@ -24,6 +24,8 @@
 #include "fire.h"
 #include "token.h"
 
+using namespace petrinet;
+
 Fire::Fire()
 {
 }

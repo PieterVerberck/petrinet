@@ -23,6 +23,7 @@
 
 #include "token.h"
 
+using namespace petrinet;
 
 Token::Token()
 {

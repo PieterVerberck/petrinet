@@ -31,16 +31,20 @@
 
 #include "sharedtreepointer.h"
 
-class Token
+namespace petrinet
 {
-public:
-  Token();
-  virtual ~Token();
 
-  virtual int size() const;
-  virtual Token* child(int i) const;
-  virtual std::string toString() const;
-};
+  class Token
+  {
+  public:
+    Token();
+    virtual ~Token();
+
+    virtual int size() const;
+    virtual Token* child(int i) const;
+    virtual std::string toString() const;
+  };
+}
 
 
 #endif

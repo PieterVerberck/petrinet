@@ -25,6 +25,8 @@
 
 #include "transition.h"
 
+using namespace petrinet;
+
 
 Transition::Transition(const std::list<int>& inputPlaces, const std::list<int>& outputPlaces, std::function<void(Token*, boost::any, boost::any, boost::any)> func)
   : inputPlaces_(inputPlaces),

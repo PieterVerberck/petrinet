@@ -28,32 +28,36 @@
 
 #include "sharedtreepointer.h"
 
-class Token;
-
-class Place
+namespace petrinet
 {
-public:
-  Place();
-  Place(const Place& p);
-  Place(int capacity, int level = 1);
-  virtual ~Place();
 
-  Place& operator=(const Place& p);
+  class Token;
 
-  int capacity() const;
-  int level() const;
+  class Place
+  {
+  public:
+    Place();
+    Place(const Place& p);
+    Place(int capacity, int level = 1);
+    virtual ~Place();
 
-  bool hasCapacityLeft(int i = 1) const;
+    Place& operator=(const Place& p);
 
-  const std::unordered_multiset<SharedTreePointer<Token>>& tokens() const { return tokens_; }
+    int capacity() const;
+    int level() const;
 
-  void putToken (SharedTreePointer<Token> token);
-  void takeToken(SharedTreePointer<Token> token);
+    bool hasCapacityLeft(int i = 1) const;
 
-private:
-  int capacity_;
-  int level_;
-  std::unordered_multiset<SharedTreePointer<Token>> tokens_;
-};
+    const std::unordered_multiset<SharedTreePointer<Token>>& tokens() const { return tokens_; }
+
+    void putToken (SharedTreePointer<Token> token);
+    void takeToken(SharedTreePointer<Token> token);
+
+  private:
+    int capacity_;
+    int level_;
+    std::unordered_multiset<SharedTreePointer<Token>> tokens_;
+  };
+}
 
 #endif

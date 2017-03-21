@@ -35,67 +35,71 @@
 #include <boost/lockfree/queue.hpp>
 #include <boost/thread.hpp>
 
-struct LogItem
+namespace petrinet
 {
-    std::string getTimeString() const;
-    std::string getMessage() const;
 
-    std::chrono::system_clock::time_point time_;
-    std::function<std::string(void)> message_;
-};
+  struct LogItem
+  {
+      std::string getTimeString() const;
+      std::string getMessage() const;
 
-class LogControl
-{
-  public:
-    virtual ~LogControl(){}
-    virtual void openOutput() = 0;
-    virtual void writeToOutput(std::string msg) = 0;
-    virtual void closeOutput() = 0;
-};
+      std::chrono::system_clock::time_point time_;
+      std::function<std::string(void)> message_;
+  };
 
-class FileLogControl : public LogControl
-{
-  public:
-    FileLogControl(std::string name);
+  class LogControl
+  {
+    public:
+      virtual ~LogControl(){}
+      virtual void openOutput() = 0;
+      virtual void writeToOutput(std::string msg) = 0;
+      virtual void closeOutput() = 0;
+  };
 
-    static void setFolder(std::string folder);
-    virtual void openOutput();
-    virtual void writeToOutput(std::string msg);
-    virtual void closeOutput();
+  class FileLogControl : public LogControl
+  {
+    public:
+      FileLogControl(std::string name);
 
-  private:
-    static std::string folder_;
-    std::fstream file_;
-    std::string name_;
-};
+      static void setFolder(std::string folder);
+      virtual void openOutput();
+      virtual void writeToOutput(std::string msg);
+      virtual void closeOutput();
 
-struct LoggerData
-{
-  LoggerData() : queue_(200){}
-  ~LoggerData() { delete logControl_; }
-  boost::lockfree::queue<LogItem*> queue_;
-  LogControl* logControl_;
-  bool postActive_;
-};
+    private:
+      static std::string folder_;
+      std::fstream file_;
+      std::string name_;
+  };
 
-class Logger
-{
-  public:
-    Logger(LogControl* logControl = new FileLogControl("mylog"));
-    virtual ~Logger();
+  struct LoggerData
+  {
+    LoggerData() : queue_(200){}
+    ~LoggerData() { delete logControl_; }
+    boost::lockfree::queue<LogItem*> queue_;
+    LogControl* logControl_;
+    bool postActive_;
+  };
+
+  class Logger
+  {
+    public:
+      Logger(LogControl* logControl = new FileLogControl("mylog"));
+      virtual ~Logger();
     
-    void log(const char* message);
-    void log(std::string message);
-    void log(std::function<std::string(void)> message);
+      void log(const char* message);
+      void log(std::string message);
+      void log(std::function<std::string(void)> message);
 
-    static EventLoop& ioService();
+      static EventLoop& ioService();
 
-  private:
-    static void handleLog(std::shared_ptr<LoggerData> loggerData);
+    private:
+      static void handleLog(std::shared_ptr<LoggerData> loggerData);
 
-    std::shared_ptr<LoggerData> loggerData_;
-    static EventLoop ioService_;
-};
+      std::shared_ptr<LoggerData> loggerData_;
+      static EventLoop ioService_;
+  };
+}
 
 
 #endif

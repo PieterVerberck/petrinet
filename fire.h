@@ -27,47 +27,52 @@
 #include <boost/any.hpp>
 #include "sharedtreepointer.h"
 
-class Token;
-
-struct FireData
+namespace petrinet
 {
-  boost::any a_;
-  boost::any b_;
-  boost::any c_;
-  SharedTreePointer<Token> token_;
-  int transitionId_;
-};
 
-class Fire
-{
-public:
-  Fire();
-  Fire(int transitionId, SharedTreePointer<Token> token, boost::any a = boost::any(), boost::any b = boost::any(), boost::any c = boost::any());
-  virtual ~Fire();
+  class Token;
 
-  bool operator==(const Fire& f) const;
+  struct FireData
+  {
+    boost::any a_;
+    boost::any b_;
+    boost::any c_;
+    SharedTreePointer<Token> token_;
+    int transitionId_;
+  };
 
-  SharedTreePointer<Token> token() const;
-  int transitionId() const;
+  class Fire
+  {
+  public:
+    Fire();
+    Fire(int transitionId, SharedTreePointer<Token> token, boost::any a = boost::any(), boost::any b = boost::any(), boost::any c = boost::any());
+    virtual ~Fire();
 
-  boost::any a() const { return data_->a_; }
-  boost::any b() const { return data_->b_; }
-  boost::any c() const { return data_->c_; }
+    bool operator==(const Fire& f) const;
 
-  std::string toString() const;
+    SharedTreePointer<Token> token() const;
+    int transitionId() const;
 
-private:
-  std::shared_ptr<FireData> data_;
+    boost::any a() const { return data_->a_; }
+    boost::any b() const { return data_->b_; }
+    boost::any c() const { return data_->c_; }
+
+    std::string toString() const;
+
+  private:
+    std::shared_ptr<FireData> data_;
 
   
-};
+  };
+
+}
 
 namespace std
 {
   template<>
-  struct hash<Fire>
+  struct hash<petrinet::Fire>
   {
-    std::size_t operator()(const Fire& s) const
+    std::size_t operator()(const petrinet::Fire& s) const
     {
       intmax_t h = (intmax_t)s.token().get();
       h = h << 8;

@@ -35,6 +35,7 @@
 #include "sharedtreepointer.h"
 #include "token.h"
 
+using namespace petrinet;
 
 class MyToken : public Token
 {

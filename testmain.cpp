@@ -29,6 +29,8 @@
 
 #include "logger.h"
 
+using namespace petrinet;
+
 
 // Having 1 dummy test case allows disabling all other ones
 BOOST_AUTO_TEST_CASE(boo)

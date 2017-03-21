@@ -28,6 +28,8 @@
 #include "petrinet.h"
 #include "token.h"
 
+using namespace petrinet;
+
 std::string countsToString(const std::map<int, int>& placeCounts)
 {
   std::string s;

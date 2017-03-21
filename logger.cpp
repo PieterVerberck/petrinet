@@ -28,6 +28,7 @@
 
 #include <chrono>
 
+using namespace petrinet;
 
 EventLoop Logger::ioService_ = EventLoop();
 
